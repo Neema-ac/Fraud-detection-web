@@ -8,8 +8,8 @@ import os
 MODEL_FILE = 'fraud_model.pkl'
 
 def train_model():
-    transaction = pd.read_csv('data/train_transaction.csv')
-    identity = pd.read_csv('data/train_identity.csv')
+    transaction = pd.read_csv(r"C:\Users\USER\Desktop\FDD 2\train_transaction.csv")
+    identity = pd.read_csv(r"C:\Users\USER\Desktop\FDD 2\train_identity.csv")
     data = transaction.merge(identity, how='left', on='TransactionID')
     
     y = data['isFraud']
