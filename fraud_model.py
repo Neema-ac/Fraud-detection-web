@@ -1,15 +1,34 @@
-
-import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-import joblib
 import os
+import pandas as pd
+import gdown
 
 MODEL_FILE = 'fraud_model.pkl'
 
-def train_model():
+def download_if_missing(filename, url):
+    if not os.path.exists(filename):
+        print(f"Downloading {filename}...")
+        gdown.download(url, filename, quiet=False)
+    else:
+        print(f"{filename} already exists. Skipping download.")
+
+def load_data():
+    transaction_url = 'https://drive.google.com/uc?id=1tpJXw8dznuAXZpCCs8GpTne22CvYmt4y'
+    identity_url = 'https://drive.google.com/uc?id=19bbfXkc4-59SoXYbTGZUeb_ZVwl92T1_'
+
+    download_if_missing('train_transaction.csv', transaction_url)
+    download_if_missing('train_identity.csv', identity_url)
+
     transaction = pd.read_csv('train_transaction.csv')
     identity = pd.read_csv('train_identity.csv')
+    return transaction, identity
+
+
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+import joblib
+
+def train_model():
+    transaction, identity = load_data()
     data = transaction.merge(identity, how='left', on='TransactionID')
     
     y = data['isFraud']
