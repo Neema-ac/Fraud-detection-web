@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 MODEL_FILE = "fraud_model.pkl"
 
 def load_data():
-    transaction = pd.read_csv(r"C:\Users\USER\Desktop\FDD 2\train_transaction.csv")
+    transaction = pd.read_csv(r"C:\Users\USER\Downloads\train_transaction.csv\train_transaction.csv")
     identity = pd.read_csv(r"C:\Users\USER\Desktop\FDD 2\train_identity.csv")
     return transaction, identity
 
